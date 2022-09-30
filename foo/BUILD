@@ -1,4 +1,4 @@
-load('/build_tools/example', 'example')
+load('//build_tools:example.bzl', 'example')
 
 example(
     name='foo',

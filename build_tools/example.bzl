@@ -1,14 +1,15 @@
 def _impl(ctx):
-    ctx.action(
+    ctx.actions.run(
         inputs = [ctx.executable._whatevah],
         outputs = [ctx.outputs.text],
-        command = "{} {}".format(ctx.executable._whatevah.path, ctx.outputs.text.path),
+        arguments = [ctx.outputs.text.path],
+        executable = ctx.executable._whatevah,
     )
 
 example = rule(
     implementation = _impl,
     attrs = {
-        "_whatevah": attr.label(executable=True, allow_files=True, default=Label("//build_tools:whatevah"))
+        "_whatevah": attr.label(executable=True, allow_files=True, default=Label("//build_tools:whatevah"), cfg="exec")
     },
     outputs = {
         "text": "%{name}.txt",
